@@ -95,7 +95,7 @@ def search(maze, start_pos, goal_pos):
     return opened_nodes, closed_nodes, samf, path
 
 
-def show_path(maze, path):
+def show_path(maze, path, start, goal):
     # Pygame initialization
     pygame.init()
     scale = 20
@@ -127,6 +127,10 @@ def show_path(maze, path):
                 if maze[y][x] in colors:
                     pygame.draw.rect(screen, colors[maze[y][x]], (x * scale,
                                      y * scale, scale, scale))
+        pygame.draw.rect(screen, YELLOW, (start[1] * scale,
+                         start[0] * scale, scale, scale))
+        pygame.draw.rect(screen, YELLOW, (goal[1] * scale,
+                         goal[0] * scale, scale, scale))
 
         # Draw the path in blue
         if draw_counter < len(path):
@@ -169,12 +173,12 @@ def return_path(current_node, map_int_np):
 
 
 def main():
-    map_obj = Map_Obj(task=3)  # Choose task 1, 2, 3 or 4.
+    map_obj = Map_Obj(task=4)  # Choose task 1, 2, 3 or 4.
     map_int_np, map_str_np = map_obj.get_maps()
     start = map_obj.get_start_pos()
     goal = map_obj.get_goal_pos()
     opened_nodes, closed_nodes, maze, path = search(map_int_np, start, goal)
-    show_path(maze, path)
+    show_path(maze, path, start, goal)
 
 
 main()
